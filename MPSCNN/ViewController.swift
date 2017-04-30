@@ -13,6 +13,18 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        /*
+         guard let cnn = CNN() else { return }
+         let mnist = MNIST()
+         cnn.setup(model: mnist)
+         cnn.run(input: .imageName("hoge"))
+         let vgg16 = VGG16()
+         cnn.setup(model: vgg16)
+         cnn.run(input: .imageName("hoge"))
+         cnn.run(input: .imageName("hoge2"))
+         
+         */
     }
 
     override func didReceiveMemoryWarning() {

@@ -12,6 +12,11 @@
 		C4C39FFB1EB4DD6A00EC55BE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4C39FF91EB4DD6A00EC55BE /* Main.storyboard */; };
 		C4C39FFD1EB4DD6A00EC55BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4C39FFC1EB4DD6A00EC55BE /* Assets.xcassets */; };
 		C4C3A0001EB4DD6A00EC55BE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4C39FFE1EB4DD6A00EC55BE /* LaunchScreen.storyboard */; };
+		C4C3A0091EB5F0B300EC55BE /* CNN.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C3A0081EB5F0B300EC55BE /* CNN.swift */; };
+		C4C3A00B1EB5F15100EC55BE /* MPSImage+Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C3A00A1EB5F15100EC55BE /* MPSImage+Array.swift */; };
+		C4C3A00D1EB5F1B900EC55BE /* CNNModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C3A00C1EB5F1B900EC55BE /* CNNModel.swift */; };
+		C4C3A00F1EB5F20700EC55BE /* MNIST.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C3A00E1EB5F20700EC55BE /* MNIST.swift */; };
+		C4C3A0111EB5F30C00EC55BE /* CNN+Layer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C3A0101EB5F30C00EC55BE /* CNN+Layer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +27,11 @@
 		C4C39FFC1EB4DD6A00EC55BE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C4C39FFF1EB4DD6A00EC55BE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C4C3A0011EB4DD6A00EC55BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C4C3A0081EB5F0B300EC55BE /* CNN.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CNN.swift; sourceTree = "<group>"; };
+		C4C3A00A1EB5F15100EC55BE /* MPSImage+Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MPSImage+Array.swift"; sourceTree = "<group>"; };
+		C4C3A00C1EB5F1B900EC55BE /* CNNModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CNNModel.swift; sourceTree = "<group>"; };
+		C4C3A00E1EB5F20700EC55BE /* MNIST.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MNIST.swift; sourceTree = "<group>"; };
+		C4C3A0101EB5F30C00EC55BE /* CNN+Layer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CNN+Layer.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,10 +66,23 @@
 			children = (
 				C4C39FF51EB4DD6A00EC55BE /* AppDelegate.swift */,
 				C4C39FF71EB4DD6A00EC55BE /* ViewController.swift */,
+				C4C3A00E1EB5F20700EC55BE /* MNIST.swift */,
 				C4C39FF91EB4DD6A00EC55BE /* Main.storyboard */,
+				C4C3A0071EB5F08500EC55BE /* MPSCNN */,
 				C4C39FFC1EB4DD6A00EC55BE /* Assets.xcassets */,
 				C4C39FFE1EB4DD6A00EC55BE /* LaunchScreen.storyboard */,
 				C4C3A0011EB4DD6A00EC55BE /* Info.plist */,
+			);
+			path = MPSCNN;
+			sourceTree = "<group>";
+		};
+		C4C3A0071EB5F08500EC55BE /* MPSCNN */ = {
+			isa = PBXGroup;
+			children = (
+				C4C3A0081EB5F0B300EC55BE /* CNN.swift */,
+				C4C3A0101EB5F30C00EC55BE /* CNN+Layer.swift */,
+				C4C3A00C1EB5F1B900EC55BE /* CNNModel.swift */,
+				C4C3A00A1EB5F15100EC55BE /* MPSImage+Array.swift */,
 			);
 			path = MPSCNN;
 			sourceTree = "<group>";
@@ -137,8 +160,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4C3A00B1EB5F15100EC55BE /* MPSImage+Array.swift in Sources */,
+				C4C3A00F1EB5F20700EC55BE /* MNIST.swift in Sources */,
+				C4C3A0111EB5F30C00EC55BE /* CNN+Layer.swift in Sources */,
 				C4C39FF81EB4DD6A00EC55BE /* ViewController.swift in Sources */,
+				C4C3A00D1EB5F1B900EC55BE /* CNNModel.swift in Sources */,
 				C4C39FF61EB4DD6A00EC55BE /* AppDelegate.swift in Sources */,
+				C4C3A0091EB5F0B300EC55BE /* CNN.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,6 +332,7 @@
 				C4C3A0061EB4DD6A00EC55BE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
