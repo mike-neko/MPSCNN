@@ -18,51 +18,7 @@ extension CNN {
         var outputOffset: Int          // TODO: 未実装
         
         func make(device: MTLDevice, inputFormat: Format) -> MPSCNNKernel? {
-            return type.makeKernel(device: device, inputFormat: inputFormat)
-        }
-        
-        var summary: String {
-            return "\(name)(\(type.name)): \(type.summary)"
-        }
-    }
-}
-
-extension CNN.Layer {
-    enum SpecificData {
-        case convolution(ch: Int, w: Int, h: Int, stride: (Int, Int), padding: Padding, activation: Activation)
-        case fullyConnected(ch: Int, activation: Activation)
-        
-        case maxPooling(size: (Int, Int), stride: (Int, Int))
-        
-        case softmax
-        
-        func outputSize(input: CNN.Format) -> CNN.Format {
-            switch self {
-            case let .convolution(ch, w, h, stride, padding, _):
-                switch padding {
-                case .same:
-                    return (w: Int(ceil(Float(input.w) / Float(stride.0))),
-                            h: Int(ceil(Float(input.h) / Float(stride.1))),
-                            ch: ch)
-                case .valid:
-                    return (w: Int(ceil(Float(input.w - w + 1) / Float(stride.0))),
-                            h: Int(ceil(Float(input.h - h + 1) / Float(stride.1))),
-                            ch: ch)
-                }
-                
-            case let .fullyConnected(ch, _):
-                return (w: 1, h: 1, ch: ch)
-            case let .maxPooling(_, stride):
-                return (w: Int(ceil(Float(input.w) / Float(stride.0))),
-                        h: Int(ceil(Float(input.h) / Float(stride.1))),
-                        ch: input.ch)
-            default:
-                return input
-            }
-        }
-        
-        func makeKernel(device: MTLDevice, inputFormat: CNN.Format) -> MPSCNNKernel? {
-            switch self {
+            switch type {
             case let .convolution(ch, w, h, stride, _, activation):
                 let desc = MPSCNNConvolutionDescriptor(kernelWidth: w, kernelHeight: h,
                                                        inputFeatureChannels: inputFormat.ch,
@@ -116,6 +72,46 @@ extension CNN.Layer {
                 return pool
             case .softmax:
                 return MPSCNNSoftMax(device: device)
+            }
+        }
+        
+        var summary: String {
+            return "\(name)(\(type.name)): \(type.summary)"
+        }
+    }
+}
+
+extension CNN.Layer {
+    enum SpecificData {
+        case convolution(ch: Int, w: Int, h: Int, stride: (Int, Int), padding: Padding, activation: Activation)
+        case fullyConnected(ch: Int, activation: Activation)
+        
+        case maxPooling(size: (Int, Int), stride: (Int, Int))
+        
+        case softmax
+        
+        func outputSize(input: CNN.Format) -> CNN.Format {
+            switch self {
+            case let .convolution(ch, w, h, stride, padding, _):
+                switch padding {
+                case .same:
+                    return (w: Int(ceil(Float(input.w) / Float(stride.0))),
+                            h: Int(ceil(Float(input.h) / Float(stride.1))),
+                            ch: ch)
+                case .valid:
+                    return (w: Int(ceil(Float(input.w - w + 1) / Float(stride.0))),
+                            h: Int(ceil(Float(input.h - h + 1) / Float(stride.1))),
+                            ch: ch)
+                }
+                
+            case let .fullyConnected(ch, _):
+                return (w: 1, h: 1, ch: ch)
+            case let .maxPooling(_, stride):
+                return (w: Int(ceil(Float(input.w) / Float(stride.0))),
+                        h: Int(ceil(Float(input.h) / Float(stride.1))),
+                        ch: input.ch)
+            default:
+                return input
             }
         }
         

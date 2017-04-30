@@ -88,7 +88,6 @@ class CNN {
                 }
                 guard let fmt = images[layer.inputImage] else { return false }
                 inputFormat = fmt
-                inputFormat.1 += 1
             }
             
             var outputFormat = layer.type.outputSize(input: inputFormat.0)
@@ -110,11 +109,19 @@ class CNN {
         //        }
         //        images.forEach { print("\($0.key): \($0.value)") }
         
-        for layer in layers {
-            guard let format = images[layer.inputImage],
-                let kernel = layer.make(device: device, inputFormat: format.0) else {
+        guard let layer = layers.first,
+              let kernel = layer.make(device: device, inputFormat: model.inputFormat) else { return false }
+        
+        kernelList = [(layer, kernel)]
+        
+        for layer in layers.dropFirst() {
+            guard var format = images[layer.inputImage],
+                  let kernel = layer.make(device: device, inputFormat: format.0) else {
                     return false
             }
+            
+            format.1 += 1
+            images[layer.inputImage] = format            
             kernelList += [(layer, kernel)]
         }
         
@@ -157,7 +164,7 @@ class CNN {
                 temp.readCount = $0.value.count
                 images[$0.key] = temp
                 return desc
-                } + [inputDesc, inputDesc]
+            } + [inputDesc, inputDesc]
             
             let srcImage = MPSTemporaryImage(commandBuffer: commandBuffer, imageDescriptor: inputDesc)
             let preImage = MPSTemporaryImage(commandBuffer: commandBuffer, imageDescriptor: inputDesc)
