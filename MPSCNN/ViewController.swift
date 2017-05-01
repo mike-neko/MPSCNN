@@ -14,17 +14,11 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        /*
-         guard let cnn = CNN() else { return }
-         let mnist = MNIST()
-         cnn.setup(model: mnist)
-         cnn.run(input: .imageName("hoge"))
-         let vgg16 = VGG16()
-         cnn.setup(model: vgg16)
-         cnn.run(input: .imageName("hoge"))
-         cnn.run(input: .imageName("hoge2"))
-         
-         */
+        guard let cnn = CNN() else { return }
+        let mnist = MNIST()
+        cnn.setup(model: mnist)
+        let res = cnn.run(input: .image(convert2CGGray(image: UIImage(named: "3.png")!)!))
+        print(res)
     }
 
     override func didReceiveMemoryWarning() {
@@ -33,5 +27,21 @@ class ViewController: UIViewController {
     }
 
 
+    func convert2CGGray(image: UIImage) -> UIImage? {
+        let rect = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
+        guard let context = CGContext(data: nil,
+                                      width: Int(image.size.width),
+                                      height: Int(image.size.height),
+                                      bitsPerComponent: 8,
+                                      bytesPerRow: 0,
+                                      space: CGColorSpaceCreateDeviceGray(),
+                                      bitmapInfo: CGImageAlphaInfo.none.rawValue),
+            let cgImage = image.cgImage  else {
+                return nil
+        }
+        
+        context.draw(cgImage, in: rect)
+        return UIImage(cgImage: context.makeImage()!)
+    }
 }
 

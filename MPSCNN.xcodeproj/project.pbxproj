@@ -17,6 +17,15 @@
 		C4C3A00D1EB5F1B900EC55BE /* CNNModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C3A00C1EB5F1B900EC55BE /* CNNModel.swift */; };
 		C4C3A00F1EB5F20700EC55BE /* MNIST.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C3A00E1EB5F20700EC55BE /* MNIST.swift */; };
 		C4C3A0111EB5F30C00EC55BE /* CNN+Layer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C3A0101EB5F30C00EC55BE /* CNN+Layer.swift */; };
+		C4C3A0151EB6033300EC55BE /* 3.png in Resources */ = {isa = PBXBuildFile; fileRef = C4C3A0141EB6033300EC55BE /* 3.png */; };
+		C4C3A01E1EB6050000EC55BE /* bias_conv1.dat in Resources */ = {isa = PBXBuildFile; fileRef = C4C3A0161EB6050000EC55BE /* bias_conv1.dat */; };
+		C4C3A01F1EB6050000EC55BE /* bias_conv2.dat in Resources */ = {isa = PBXBuildFile; fileRef = C4C3A0171EB6050000EC55BE /* bias_conv2.dat */; };
+		C4C3A0201EB6050000EC55BE /* bias_fc1.dat in Resources */ = {isa = PBXBuildFile; fileRef = C4C3A0181EB6050000EC55BE /* bias_fc1.dat */; };
+		C4C3A0211EB6050000EC55BE /* bias_fc2.dat in Resources */ = {isa = PBXBuildFile; fileRef = C4C3A0191EB6050000EC55BE /* bias_fc2.dat */; };
+		C4C3A0221EB6050000EC55BE /* weights_conv1.dat in Resources */ = {isa = PBXBuildFile; fileRef = C4C3A01A1EB6050000EC55BE /* weights_conv1.dat */; };
+		C4C3A0231EB6050000EC55BE /* weights_conv2.dat in Resources */ = {isa = PBXBuildFile; fileRef = C4C3A01B1EB6050000EC55BE /* weights_conv2.dat */; };
+		C4C3A0241EB6050000EC55BE /* weights_fc1.dat in Resources */ = {isa = PBXBuildFile; fileRef = C4C3A01C1EB6050000EC55BE /* weights_fc1.dat */; };
+		C4C3A0251EB6050000EC55BE /* weights_fc2.dat in Resources */ = {isa = PBXBuildFile; fileRef = C4C3A01D1EB6050000EC55BE /* weights_fc2.dat */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +41,15 @@
 		C4C3A00C1EB5F1B900EC55BE /* CNNModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CNNModel.swift; sourceTree = "<group>"; };
 		C4C3A00E1EB5F20700EC55BE /* MNIST.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MNIST.swift; sourceTree = "<group>"; };
 		C4C3A0101EB5F30C00EC55BE /* CNN+Layer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CNN+Layer.swift"; sourceTree = "<group>"; };
+		C4C3A0141EB6033300EC55BE /* 3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 3.png; sourceTree = "<group>"; };
+		C4C3A0161EB6050000EC55BE /* bias_conv1.dat */ = {isa = PBXFileReference; lastKnownFileType = file; path = bias_conv1.dat; sourceTree = "<group>"; };
+		C4C3A0171EB6050000EC55BE /* bias_conv2.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bias_conv2.dat; sourceTree = "<group>"; };
+		C4C3A0181EB6050000EC55BE /* bias_fc1.dat */ = {isa = PBXFileReference; lastKnownFileType = file; path = bias_fc1.dat; sourceTree = "<group>"; };
+		C4C3A0191EB6050000EC55BE /* bias_fc2.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bias_fc2.dat; sourceTree = "<group>"; };
+		C4C3A01A1EB6050000EC55BE /* weights_conv1.dat */ = {isa = PBXFileReference; lastKnownFileType = file; path = weights_conv1.dat; sourceTree = "<group>"; };
+		C4C3A01B1EB6050000EC55BE /* weights_conv2.dat */ = {isa = PBXFileReference; lastKnownFileType = file; path = weights_conv2.dat; sourceTree = "<group>"; };
+		C4C3A01C1EB6050000EC55BE /* weights_fc1.dat */ = {isa = PBXFileReference; lastKnownFileType = file; path = weights_fc1.dat; sourceTree = "<group>"; };
+		C4C3A01D1EB6050000EC55BE /* weights_fc2.dat */ = {isa = PBXFileReference; lastKnownFileType = file; path = weights_fc2.dat; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,9 +82,18 @@
 		C4C39FF41EB4DD6A00EC55BE /* MPSCNN */ = {
 			isa = PBXGroup;
 			children = (
+				C4C3A0141EB6033300EC55BE /* 3.png */,
 				C4C39FF51EB4DD6A00EC55BE /* AppDelegate.swift */,
 				C4C39FF71EB4DD6A00EC55BE /* ViewController.swift */,
 				C4C3A00E1EB5F20700EC55BE /* MNIST.swift */,
+				C4C3A0161EB6050000EC55BE /* bias_conv1.dat */,
+				C4C3A0171EB6050000EC55BE /* bias_conv2.dat */,
+				C4C3A0181EB6050000EC55BE /* bias_fc1.dat */,
+				C4C3A0191EB6050000EC55BE /* bias_fc2.dat */,
+				C4C3A01A1EB6050000EC55BE /* weights_conv1.dat */,
+				C4C3A01B1EB6050000EC55BE /* weights_conv2.dat */,
+				C4C3A01C1EB6050000EC55BE /* weights_fc1.dat */,
+				C4C3A01D1EB6050000EC55BE /* weights_fc2.dat */,
 				C4C39FF91EB4DD6A00EC55BE /* Main.storyboard */,
 				C4C3A0071EB5F08500EC55BE /* MPSCNN */,
 				C4C39FFC1EB4DD6A00EC55BE /* Assets.xcassets */,
@@ -147,9 +174,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4C3A0221EB6050000EC55BE /* weights_conv1.dat in Resources */,
 				C4C3A0001EB4DD6A00EC55BE /* LaunchScreen.storyboard in Resources */,
+				C4C3A0231EB6050000EC55BE /* weights_conv2.dat in Resources */,
+				C4C3A0251EB6050000EC55BE /* weights_fc2.dat in Resources */,
 				C4C39FFD1EB4DD6A00EC55BE /* Assets.xcassets in Resources */,
+				C4C3A01E1EB6050000EC55BE /* bias_conv1.dat in Resources */,
+				C4C3A0241EB6050000EC55BE /* weights_fc1.dat in Resources */,
+				C4C3A0201EB6050000EC55BE /* bias_fc1.dat in Resources */,
+				C4C3A0211EB6050000EC55BE /* bias_fc2.dat in Resources */,
 				C4C39FFB1EB4DD6A00EC55BE /* Main.storyboard in Resources */,
+				C4C3A0151EB6033300EC55BE /* 3.png in Resources */,
+				C4C3A01F1EB6050000EC55BE /* bias_conv2.dat in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
