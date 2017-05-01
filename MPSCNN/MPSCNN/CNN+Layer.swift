@@ -17,6 +17,23 @@ extension CNN {
         var outputImage: String
         var outputOffset: Int          // TODO: 未実装
         
+        private func loadParameter<T>(body: (UnsafePointer<Float>, UnsafePointer<Float>) -> T) -> T? {
+            guard let weightPath = Bundle.main.url(forResource: CNN.weightParamPrefix + name, withExtension: CNN.paramExtension),
+                let rawWeight = try? Data(contentsOf: weightPath) else {
+                    return nil
+            }
+            guard let biasPath = Bundle.main.url(forResource: CNN.biasParamPrefix + name, withExtension: CNN.paramExtension),
+                let rawBias = try? Data(contentsOf: biasPath) else {
+                    return nil
+            }
+            
+            return rawWeight.withUnsafeBytes { (weight: UnsafePointer<Float>) -> T in
+                return rawBias.withUnsafeBytes { (bias: UnsafePointer<Float>) -> T in
+                    return body(weight, bias)
+                }
+            }
+        }
+        
         func make(device: MTLDevice, inputFormat: Format) -> MPSCNNKernel? {
             switch type {
             case let .convolution(ch, w, h, stride, _, activation):
@@ -27,43 +44,22 @@ extension CNN {
                 desc.strideInPixelsX = stride.0
                 desc.strideInPixelsY = stride.1
                 
-                // TODO: リファクタ
-                guard let weightPath = Bundle.main.url(forResource: CNN.weightParamPrefix + name, withExtension: CNN.paramExtension),
-                    let rawWeight = try? Data(contentsOf: weightPath) else {
-                        return nil
-                }
-                guard let biasPath = Bundle.main.url(forResource: CNN.biasParamPrefix + name, withExtension: CNN.paramExtension),
-                    let rawBias = try? Data(contentsOf: biasPath) else {
-                        return nil
-                }
-                
-                return rawWeight.withUnsafeBytes { (weight: UnsafePointer<Float>) -> MPSCNNConvolution in
-                    return rawBias.withUnsafeBytes { (bias: UnsafePointer<Float>) -> MPSCNNConvolution in
-                        return MPSCNNConvolution(device: device, convolutionDescriptor: desc,
-                                                 kernelWeights: weight, biasTerms: bias, flags: .none)
-                    }
-                }
+                return loadParameter(body: { (weights, bias) -> MPSCNNKernel in
+                    let conv = MPSCNNConvolution(device: device, convolutionDescriptor: desc,
+                                                 kernelWeights: weights, biasTerms: bias, flags: .none)
+                    conv.offset = MPSOffset(x: Int(w) / 2, y: Int(h) / 2, z: 0)
+                    return conv
+                })
             case let .fullyConnected(ch, activation):
                 let desc = MPSCNNConvolutionDescriptor(kernelWidth: inputFormat.w, kernelHeight: inputFormat.h,
                                                        inputFeatureChannels: inputFormat.ch,
                                                        outputFeatureChannels: ch,
                                                        neuronFilter: activation.makeNeuron(device: device))
                 
-                guard let weightPath = Bundle.main.url(forResource: CNN.weightParamPrefix + name, withExtension: CNN.paramExtension),
-                    let rawWeight = try? Data(contentsOf: weightPath) else {
-                        return nil
-                }
-                guard let biasPath = Bundle.main.url(forResource: CNN.biasParamPrefix + name, withExtension: CNN.paramExtension),
-                    let rawBias = try? Data(contentsOf: biasPath) else {
-                        return nil
-                }
-                
-                return rawWeight.withUnsafeBytes { (weight: UnsafePointer<Float>) -> MPSCNNFullyConnected in
-                    return rawBias.withUnsafeBytes { (bias: UnsafePointer<Float>) -> MPSCNNFullyConnected in
-                        return MPSCNNFullyConnected(device: device, convolutionDescriptor: desc,
-                                                    kernelWeights: weight, biasTerms: bias, flags: .none)
-                    }
-                }
+                return loadParameter(body: { (weights, bias) -> MPSCNNKernel in
+                    return MPSCNNFullyConnected(device: device, convolutionDescriptor: desc,
+                                                kernelWeights: weights, biasTerms: bias, flags: .none)
+                })
                 
             case let .maxPooling(size, stride):
                 let pool = MPSCNNPoolingMax(device: device, kernelWidth: size.0, kernelHeight: size.1,
