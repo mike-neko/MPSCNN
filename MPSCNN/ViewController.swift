@@ -15,9 +15,13 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         guard let cnn = CNN() else { return }
-        let mnist = MNIST()
-        cnn.setup(model: mnist)
-        let res = cnn.run(input: .image(convert2CGGray(image: UIImage(named: "3.png")!)!))
+//        let mnist = MNIST()
+//        cnn.setup(model: mnist)
+//        let res = cnn.run(input: .image(convert2CGGray(image: UIImage(named: "3.png")!)!))
+//        print(res)
+        let vgg16 = VGG16()
+        cnn.setup(model: vgg16)
+        let res = cnn.run(input: .image(UIImage(named: "test.jpg")!)).sorted().reversed().first
         print(res)
     }
 
