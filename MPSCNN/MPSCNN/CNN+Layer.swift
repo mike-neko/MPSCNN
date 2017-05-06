@@ -65,6 +65,7 @@ extension CNN {
                 let pool = MPSCNNPoolingMax(device: device, kernelWidth: size.0, kernelHeight: size.1,
                                             strideInPixelsX: stride.0, strideInPixelsY: stride.1)
                 pool.offset = MPSOffset(x: size.0 / 2, y: size.1 / 2, z: 0)
+                pool.edgeMode = .clamp  // TODO: !
                 return pool
             case .softmax:
                 return MPSCNNSoftMax(device: device)

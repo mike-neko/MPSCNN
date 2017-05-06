@@ -8,8 +8,6 @@
 
 import Foundation
 
-import Foundation
-
 class VGG16: CNNModel {
     // TODO: test
     var inputFormat = (w: 224, h: 224, ch: 3)

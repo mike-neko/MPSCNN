@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C49258F21EBC6CAA0079FE09 /* Inception.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49258F11EBC6CAA0079FE09 /* Inception.swift */; };
 		C4C39FF61EB4DD6A00EC55BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C39FF51EB4DD6A00EC55BE /* AppDelegate.swift */; };
 		C4C39FF81EB4DD6A00EC55BE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C39FF71EB4DD6A00EC55BE /* ViewController.swift */; };
 		C4C39FFB1EB4DD6A00EC55BE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4C39FF91EB4DD6A00EC55BE /* Main.storyboard */; };
@@ -31,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C49258F11EBC6CAA0079FE09 /* Inception.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Inception.swift; sourceTree = "<group>"; };
 		C4C39FF21EB4DD6A00EC55BE /* MPSCNN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MPSCNN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4C39FF51EB4DD6A00EC55BE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4C39FF71EB4DD6A00EC55BE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -67,6 +69,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C49258F01EBC6C980079FE09 /* Inception */ = {
+			isa = PBXGroup;
+			children = (
+				C49258F11EBC6CAA0079FE09 /* Inception.swift */,
+			);
+			path = Inception;
+			sourceTree = "<group>";
+		};
 		C4C39FE91EB4DD6A00EC55BE = {
 			isa = PBXGroup;
 			children = (
@@ -89,6 +99,7 @@
 				C4C39FF51EB4DD6A00EC55BE /* AppDelegate.swift */,
 				C4C39FF71EB4DD6A00EC55BE /* ViewController.swift */,
 				C4C39FF91EB4DD6A00EC55BE /* Main.storyboard */,
+				C49258F01EBC6C980079FE09 /* Inception */,
 				C4C3A07F1EB78DE700EC55BE /* VGG16 */,
 				C4C3A06A1EB78CED00EC55BE /* MNIST */,
 				C4C3A0071EB5F08500EC55BE /* MPSCNN */,
@@ -224,6 +235,7 @@
 				C4C3A0111EB5F30C00EC55BE /* CNN+Layer.swift in Sources */,
 				C4C39FF81EB4DD6A00EC55BE /* ViewController.swift in Sources */,
 				C4C3A00D1EB5F1B900EC55BE /* CNNModel.swift in Sources */,
+				C49258F21EBC6CAA0079FE09 /* Inception.swift in Sources */,
 				C4C39FF61EB4DD6A00EC55BE /* AppDelegate.swift in Sources */,
 				C4C3A07A1EB78CED00EC55BE /* MNIST.swift in Sources */,
 				C4C3A0091EB5F0B300EC55BE /* CNN.swift in Sources */,
