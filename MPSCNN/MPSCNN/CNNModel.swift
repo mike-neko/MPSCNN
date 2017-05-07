@@ -36,6 +36,15 @@ extension CNNModel {
                          inputImage: input, outputImage: output, outputOffset: 0)
     }
     
+    func averagePooling2D(_ name: String,
+                          kernel: (Int, Int),
+                          stride: (Int, Int),
+                          input: String = "", output: String = "") -> CNN.Layer {
+        return CNN.Layer(name: name,
+                         type: .averagePooling(size: kernel, stride: stride),
+                         inputImage: input, outputImage: output, outputOffset: 0)
+    }
+    
     func fully(_ name: String,
                _ channel: Int,
                activation: CNN.Layer.Activation = .linear,

@@ -65,7 +65,13 @@ extension CNN {
                 let pool = MPSCNNPoolingMax(device: device, kernelWidth: size.0, kernelHeight: size.1,
                                             strideInPixelsX: stride.0, strideInPixelsY: stride.1)
                 pool.offset = MPSOffset(x: size.0 / 2, y: size.1 / 2, z: 0)
-                pool.edgeMode = .clamp  // TODO: !
+                pool.edgeMode = .clamp
+                return pool
+            case let .averagePooling(size, stride):
+                let pool = MPSCNNPoolingAverage(device: device, kernelWidth: size.0, kernelHeight: size.1,
+                                                strideInPixelsX: stride.0, strideInPixelsY: stride.1)
+                pool.offset = MPSOffset(x: size.0 / 2, y: size.1 / 2, z: 0)
+                pool.edgeMode = .clamp
                 return pool
             case .softmax:
                 return MPSCNNSoftMax(device: device)
@@ -84,6 +90,7 @@ extension CNN.Layer {
         case fullyConnected(ch: Int, activation: Activation)
         
         case maxPooling(size: (Int, Int), stride: (Int, Int))
+        case averagePooling(size: (Int, Int), stride: (Int, Int))
         
         case softmax
         
@@ -117,6 +124,7 @@ extension CNN.Layer {
             case .convolution: return "conv"
             case .fullyConnected: return "fully"
             case .maxPooling: return "maxPool"
+            case .averagePooling: return "avgPool"
             case .softmax: return "softmax"
             }
         }
@@ -127,7 +135,7 @@ extension CNN.Layer {
                 return "(\(ch), \(w), \(h)), \(stride), \(padding.summary), \(activation.summary)"
             case let .fullyConnected(ch, activation):
                 return "\(ch), \(activation.summary)"
-            case let .maxPooling(size, stride):
+            case let .maxPooling(size, stride), let .averagePooling(size, stride):
                 return "\(size), \(stride)"
             case .softmax:
                 return ""
