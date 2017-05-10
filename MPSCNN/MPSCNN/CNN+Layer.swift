@@ -15,7 +15,7 @@ extension CNN {
         var type: SpecificData
         var inputImage: String
         var outputImage: String
-        var outputOffset: Int          // TODO: 未実装
+        var outputOffset: Int
         
         private func loadParameter<T>(body: (UnsafePointer<Float>, UnsafePointer<Float>) -> T) -> T? {
             guard let weightPath = Bundle.main.url(forResource: CNN.weightParamPrefix + name, withExtension: CNN.paramExtension),
@@ -48,6 +48,7 @@ extension CNN {
                     let conv = MPSCNNConvolution(device: device, convolutionDescriptor: desc,
                                                  kernelWeights: weights, biasTerms: bias, flags: .none)
                     conv.offset = MPSOffset(x: Int(w) / 2, y: Int(h) / 2, z: 0)
+                    conv.destinationFeatureChannelOffset = outputOffset
                     return conv
                 })
             case let .fullyConnected(ch, activation):
@@ -66,12 +67,14 @@ extension CNN {
                                             strideInPixelsX: stride.0, strideInPixelsY: stride.1)
                 pool.offset = MPSOffset(x: size.0 / 2, y: size.1 / 2, z: 0)
                 pool.edgeMode = .clamp
+                pool.destinationFeatureChannelOffset = outputOffset
                 return pool
             case let .averagePooling(size, stride):
                 let pool = MPSCNNPoolingAverage(device: device, kernelWidth: size.0, kernelHeight: size.1,
                                                 strideInPixelsX: stride.0, strideInPixelsY: stride.1)
                 pool.offset = MPSOffset(x: size.0 / 2, y: size.1 / 2, z: 0)
                 pool.edgeMode = .clamp
+                pool.destinationFeatureChannelOffset = outputOffset
                 return pool
             case .softmax:
                 return MPSCNNSoftMax(device: device)
@@ -79,7 +82,8 @@ extension CNN {
         }
         
         var summary: String {
-            return "\(name)(\(type.name)): \(type.summary)"
+            let ofs = (outputOffset > 0) ? ", offset: \(outputOffset)" : ""
+            return "\(name)(\(type.name)): \(type.summary)\(ofs)"
         }
     }
 }
@@ -103,14 +107,20 @@ extension CNN.Layer {
                             h: Int(ceil(Float(input.h) / Float(stride.1))),
                             ch: ch)
                 case .valid:
-                    return (w: Int(ceil(Float(input.w - w + 1) / Float(stride.0))),
-                            h: Int(ceil(Float(input.h - h + 1) / Float(stride.1))),
+                    return (w: Int(ceil(Float(input.w - w) / Float(stride.0))),
+                            h: Int(ceil(Float(input.h - h) / Float(stride.1))),
                             ch: ch)
                 }
                 
             case let .fullyConnected(ch, _):
                 return (w: 1, h: 1, ch: ch)
-            case let .maxPooling(_, stride):
+
+//            case let .maxPooling(size, stride), let .averagePooling(size, stride):
+//                return (w: Int(ceil(Float(input.w - size.0) / Float(stride.0))),
+//                        h: Int(ceil(Float(input.h - size.0) / Float(stride.1))),
+//                        ch: input.ch)
+                
+            case let .maxPooling(_, stride), let .averagePooling(_, stride):
                 return (w: Int(ceil(Float(input.w) / Float(stride.0))),
                         h: Int(ceil(Float(input.h) / Float(stride.1))),
                         ch: input.ch)

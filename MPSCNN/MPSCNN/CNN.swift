@@ -86,14 +86,15 @@ class CNN {
                 if layer.inputImage == "" {
                     layer.inputImage = layers[item.offset - 1].name
                 }
-                guard let fmt = images[layer.inputImage] else { return false }
+                guard let fmt = images[layer.inputImage] else {
+                    return false
+                }
                 inputFormat = fmt
             }
             
             var outputFormat = layer.type.outputSize(input: inputFormat.0)
             if let exist = images[layer.outputImage] {
-                guard exist.0.w == inputFormat.0.w && exist.0.h == inputFormat.0.h else { return false }
-                layer.outputOffset = inputFormat.0.ch
+                layer.outputOffset = exist.0.ch
                 outputFormat.ch += exist.0.ch
             }
             images[layer.outputImage] = (outputFormat, 0)
@@ -101,13 +102,13 @@ class CNN {
             layers += [layer]
         }
         
-        //        print("input:\n => \(model.inputFormat)")
-        //        for layer in layers {
-        //            print(layer.summary)
-        //            let inImage = images[layer.inputImage] ?? model.inputFormat
-        //            print("\(inImage) => \(layer.outputImage)\(images[layer.outputImage]!)")
-        //        }
-        //        images.forEach { print("\($0.key): \($0.value)") }
+        print("input:\n => \(model.inputFormat)")
+        for layer in layers {
+            print(layer.summary)
+            let inImage = images[layer.inputImage] ?? (model.inputFormat, 0)
+            print("\(inImage) => \(layer.outputImage)\(images[layer.outputImage]!)")
+        }
+        images.forEach { print("\($0.key): \($0.value)") }
         
         guard let layer = layers.first,
               let kernel = layer.make(device: device, inputFormat: model.inputFormat) else { return false }
